@@ -4,12 +4,13 @@ export function PopupWithForm({
   name,
   title,
   onClose,
+  isOpen,
   children,
   buttonText = "Save",
 }) {
   return (
     <>
-      <div className={`modal modal__${name}`}>
+      <div className={`modal modal__${name} ${isOpen ? "modal__open" : ""}`}>
         <div className="modal__container">
           <button
             className="modal__close"

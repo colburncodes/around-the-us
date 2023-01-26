@@ -2,29 +2,22 @@ import React from "react";
 import likeIcon from "../images/heart.svg";
 import profilePath from "../images/jacques-cousteau.jpg";
 
-function handleEditAvatarClick() {
-  document.querySelector(".modal__avatar").classList.add("modal__open");
-}
 
-function handleEditProfileClick() {
-  document.querySelector(".modal__edit").classList.add("modal__open");
-}
-
-function handleAddPlaceClick() {
-  document.querySelector(".modal__create").classList.add("modal__open");
-}
-
-export function Main({ heartPath }) {
+export function Main({
+  onEditProfileClick,
+  onAddPlaceClick,
+  onEditAvatarClick,
+  onCardClick,
+}) {
   return (
     <main className="content">
-      {/* <!--Profile Section--> */}
       <section className="profile page__section">
         <img className="profile__image" src={profilePath} alt="Avatar" />
         <button
           className="profile__avatar-edit"
           type="button"
           aria-label="edit-avatar"
-          onClick={handleEditAvatarClick}
+          onClick={onEditAvatarClick}
         ></button>
         <div className="profile__info">
           <h1 className="profile__title">Colburn Jones</h1>
@@ -32,7 +25,7 @@ export function Main({ heartPath }) {
             className="profile__edit-button"
             type="button"
             aria-label="edit"
-            onClick={handleEditProfileClick}
+            onClick={onEditProfileClick}
           ></button>
           <p className="profile__description">Engineer</p>
         </div>
@@ -40,10 +33,10 @@ export function Main({ heartPath }) {
           className="profile__add-button"
           type="button"
           aria-label="add"
-          onClick={handleAddPlaceClick}
+          onClick={onAddPlaceClick}
         ></button>
       </section>
-      {/* <!--End Profile Section--> */}
+
       <section className="cards page__section">
         <ul className="cards__list">
           <template id="card-template">
