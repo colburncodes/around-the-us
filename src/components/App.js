@@ -7,16 +7,42 @@ import { Footer } from "./Footer";
 import { PopupWithForm } from "./PopupWithForm";
 
 function App() {
-  const [activeModal, setActiveModal] = useState(null);
+  const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
+  const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
+  const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
+
+  function handleEditAvatarClick() {
+    setIsEditAvatarModalOpen(true);
+  }
+
+  function handleEditProfileClick() {
+    setIsEditProfileModalOpen(true);
+  }
+
+  function handleAddPlaceClick() {
+    setIsAddPlaceModalOpen(true);
+  }
+
+  function handleCardClick() {
+    console.log("clicked");
+  }
 
   const closeAllModals = () => {
-    setActiveModal(null);
+    setIsEditAvatarModalOpen(false);
+    setIsEditProfileModalOpen(false);
+    setIsAddPlaceModalOpen(false);
   };
+
   return (
     <div className="page">
       <div className="page__content">
         <Header />
-        <Main />
+        <Main
+          onEditProfileClick={handleEditProfileClick}
+          onAddPlaceClick={handleAddPlaceClick}
+          onEditAvatarClick={handleEditAvatarClick}
+          onCardClick={handleCardClick}
+        />
         <Footer />
       </div>
 
@@ -24,6 +50,7 @@ function App() {
         name="edit"
         title="Edit Profile"
         buttonText="Save"
+        isOpen={isEditProfileModalOpen}
         onClose={closeAllModals}
       >
         <input
@@ -50,73 +77,55 @@ function App() {
         <span className="modal__input-error profile-description-error"></span>
       </PopupWithForm>
 
-      {/* 
-    <!-- Create Modal--> */}
-      <div className="modal modal__create">
-        <div className="modal__container">
-          <button className="modal__close" type="button"></button>
-          <h3 className="modal__title">New Place</h3>
-          <form className="modal__form modal__form-create" noValidate>
-            <fieldset className="modal__form-fieldset">
-              <input
-                id="card-title"
-                className="modal__input modal__input-card-title"
-                type="text"
-                name="name"
-                placeholder="Title"
-                minLength="1"
-                maxLength="30"
-                required
-              />
-              <span className="modal__input-error card-title-error"></span>
-              <input
-                id="card-url"
-                className="modal__input modal__input-card-url"
-                type="url"
-                name="link"
-                placeholder="Image Url"
-                pattern="https://.*"
-                required
-              />
-              <span className="modal__input-error card-url-error"></span>
-              <button
-                className="modal__save-button modal__button-disabled"
-                type="submit"
-                disabled
-              >
-                Save
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </div>
-      {/* Avatar Modal */}
-      <div className="modal modal__avatar">
-        <div className="modal__container">
-          <h3 className="modal__title">Change profile picture</h3>
-          <button type="button" className="modal__close"></button>
-          <form className="modal__form modal__form-avatar" noValidate>
-            <fieldset className="modal__form-fieldset">
-              <input
-                id="avatar-url"
-                className="modal__input modal__input-profile-avatar"
-                type="url"
-                name="avatar"
-                placeholder="Avatar Image"
-                pattern="https://.*"
-                required
-              />
-              <span className="modal__input-error avatar-url-error"></span>
-              <button
-                className="modal__save-button modal__button-disabled"
-                type="submit"
-              >
-                Save
-              </button>
-            </fieldset>
-          </form>
-        </div>
-      </div>
+      <PopupWithForm
+        name="create"
+        title="New Place"
+        buttonText="Save"
+        isOpen={isAddPlaceModalOpen}
+        onClose={closeAllModals}
+      >
+        <input
+          id="card-title"
+          className="modal__input modal__input-card-title"
+          type="text"
+          name="name"
+          placeholder="Title"
+          minLength="1"
+          maxLength="30"
+          required
+        />
+        <span className="modal__input-error card-title-error"></span>
+        <input
+          id="card-url"
+          className="modal__input modal__input-card-url"
+          type="url"
+          name="link"
+          placeholder="Image Url"
+          pattern="https://.*"
+          required
+        />
+        <span className="modal__input-error card-url-error"></span>
+      </PopupWithForm>
+
+      <PopupWithForm
+        name="avatar"
+        title="Change profile picture"
+        buttonText="Save"
+        isOpen={isEditAvatarModalOpen}
+        onClose={closeAllModals}
+      >
+        <input
+          id="avatar-url"
+          className="modal__input modal__input-profile-avatar"
+          type="url"
+          name="avatar"
+          placeholder="Avatar Image"
+          pattern="https://.*"
+          required
+        />
+        <span className="modal__input-error avatar-url-error"></span>
+      </PopupWithForm>
+
       {/* Image Modal */}
       <div className="modal" id="image-modal">
         <div className="modal__container modal__content-image">
@@ -126,7 +135,13 @@ function App() {
         </div>
       </div>
       {/* Delete Confirmation Modal */}
-      <div className="modal" id="delete-modal">
+      <PopupWithForm
+        name="delete"
+        title="Are you sure?"
+        buttonText="Yes"
+        onClose={closeAllModals}
+      ></PopupWithForm>
+      {/* <div className="modal" id="delete-modal">
         <div className="modal__delete-container">
           <h3 className="modal__title">Are you sure?</h3>
           <button type="button" className="modal__close"></button>
@@ -134,7 +149,7 @@ function App() {
             Yes
           </button>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }
