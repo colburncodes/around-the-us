@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/colburncodes/around-the-us/static/css/main.af75fc23.css",
+    "main.js": "/colburncodes/around-the-us/static/js/main.8d22d987.js",
+    "static/js/787.1c78f32b.chunk.js": "/colburncodes/around-the-us/static/js/787.1c78f32b.chunk.js",
+    "static/media/logo.svg": "/colburncodes/around-the-us/static/media/logo.4e8e0a1d604782a0dff8e5b1a5441e4d.svg",
+    "static/media/heart.svg": "/colburncodes/around-the-us/static/media/heart.490e8e45f6fd07daa7ff.svg",
+    "index.html": "/colburncodes/around-the-us/index.html",
+    "static/media/Trash.svg": "/colburncodes/around-the-us/static/media/Trash.8cb59aa98088a1653f62.svg",
+    "static/media/Union.svg": "/colburncodes/around-the-us/static/media/Union.226461bd64622361ffb2.svg",
+    "static/media/close-button.svg": "/colburncodes/around-the-us/static/media/close-button.a0b69d73215c6cfa2136.svg",
+    "static/media/edit-button.svg": "/colburncodes/around-the-us/static/media/edit-button.8667ac4a523e8fc42e59.svg",
+    "static/media/edit-icon.svg": "/colburncodes/around-the-us/static/media/edit-icon.a086f758840ae814ecde.svg",
+    "static/media/add-button.svg": "/colburncodes/around-the-us/static/media/add-button.d86bb2edc2f6eadb96b7.svg",
+    "main.af75fc23.css.map": "/colburncodes/around-the-us/static/css/main.af75fc23.css.map",
+    "main.8d22d987.js.map": "/colburncodes/around-the-us/static/js/main.8d22d987.js.map",
+    "787.1c78f32b.chunk.js.map": "/colburncodes/around-the-us/static/js/787.1c78f32b.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.af75fc23.css",
+    "static/js/main.8d22d987.js"
+  ]
+}
