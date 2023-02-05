@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { api } from "../utils/api";
-import likeIcon from "../images/heart.svg";
+import { Card } from "../components/Card";
 
 export function Main({
   onEditProfileClick,
@@ -56,24 +56,7 @@ export function Main({
       <section className="cards page__section">
         <ul className="cards__list">
           {cards.map((card) => (
-            <li key={card._id} className="card">
-              <img className="card__image" src={card.link} alt={card.name} />
-              <div className="card__label">
-                <h2 className="card__label-text">{card.name}</h2>
-                <button
-                  className="card__delete-button"
-                  type="button"
-                  aria-label="delete"
-                ></button>
-                <button
-                  className="card__like-button"
-                  type="button"
-                  aria-label="heart"
-                ></button>
-                <img src={likeIcon} alt="Heart Icon" />
-                <p className="card__like-count">{card.likes.length}</p>
-              </div>
-            </li>
+            <Card key={card._id} card={card} onCardClick={onCardClick} />
           ))}
         </ul>
       </section>

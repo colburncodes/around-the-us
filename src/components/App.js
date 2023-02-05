@@ -4,12 +4,15 @@ import { useState } from "react";
 import { Header } from "./Header";
 import { Main } from "./Main";
 import { Footer } from "./Footer";
+import { ImagePopup } from "./ImagePopup";
 import { PopupWithForm } from "./PopupWithForm";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
+  const [selectedCard, setSelectedCard] = useState("");
+  const [isImageOpen, setIsImageOpen] = useState(false);
 
   function handleEditAvatarClick() {
     setIsEditAvatarModalOpen(true);
@@ -24,13 +27,15 @@ function App() {
   }
 
   function handleCardClick() {
-    console.log("clicked");
+    setSelectedCard(selectedCard);
+    setIsImageOpen(true);
   }
 
   const closeAllModals = () => {
     setIsEditAvatarModalOpen(false);
     setIsEditProfileModalOpen(false);
     setIsAddPlaceModalOpen(false);
+    setIsImageOpen(false);
   };
 
   return (
@@ -126,14 +131,6 @@ function App() {
         <span className="modal__input-error avatar-url-error"></span>
       </PopupWithForm>
 
-      {/* Image Modal */}
-      <div className="modal" id="image-modal">
-        <div className="modal__container modal__content-image">
-          <button type="button" className="modal__close"></button>
-          <img className="modal__preview-image" alt="#" src="#" />
-          <p className="modal__caption"></p>
-        </div>
-      </div>
       {/* Delete Confirmation Modal */}
       <PopupWithForm
         name="delete"
@@ -150,6 +147,12 @@ function App() {
           </button>
         </div>
       </div> */}
+      <ImagePopup
+        name="image"
+        card={selectedCard}
+        isOpen={isImageOpen}
+        onClose={closeAllModals}
+      />
     </div>
   );
 }
