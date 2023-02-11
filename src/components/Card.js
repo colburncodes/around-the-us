@@ -1,8 +1,22 @@
+import React from "react";
+import { CurrentUserContext } from "../context/CurrentUserContext";
+
 export function Card(props) {
   const { card, onCardClick } = props;
+  const user = React.useContext(CurrentUserContext);
+
+  const isLiked = card.likes.some((i) => i._id === user._id);
+  const cardLikeButtonClassName = `card__like-button ${
+    isLiked && "card__like-active"
+  }`;
+
+  const isOwn = card.owner._id === user._id;
+  const cardDeleteButtonClassName = `card__delete-button ${
+    isOwn ? "card__delete-button_visible" : "card__delete-button_hidden"
+  }`;
 
   function handleClick() {
-    onCardClick(props.card);
+    onCardClick(card);
   }
 
   return (
@@ -25,8 +39,9 @@ export function Card(props) {
           type="button"
           aria-label="heart"
         ></button>
-        {/* <img src="../images/heart.svg" alt="Heart Icon" /> */}
-        <p className="card__like-count">{card.likes.length}</p>
+        <p className="card__like-count">
+          {card.likes.length > 0 ? card.likes.length : ""}
+        </p>
       </div>
     </li>
   );

@@ -1,5 +1,4 @@
 export function ImagePopup({ name, card, isOpen, onClose }) {
-  console.log(card);
   return (
     <div className={`modal modal__${name} ${isOpen && "modal__open"}`}>
       <div className="modal__container modal__content-image">
