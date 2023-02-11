@@ -21,11 +21,7 @@ export function PopupWithForm({
           <form className={`modal__form modal__form-${name}`}>
             <fieldset className="modal__form-fieldset">
               {children}
-              <button
-                className="modal__save-button modal__button-disabled"
-                type="submit"
-                disabled
-              >
+              <button className="modal__save-button" type="submit">
                 {buttonText}
               </button>
             </fieldset>
