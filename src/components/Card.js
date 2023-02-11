@@ -1,4 +1,5 @@
 import React from "react";
+import heart from "../images/heart.svg";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
 export function Card(props) {
@@ -34,11 +35,9 @@ export function Card(props) {
           type="button"
           aria-label="delete"
         ></button>
-        <button
-          className="card__like-button"
-          type="button"
-          aria-label="heart"
-        ></button>
+        <button className={cardLikeButtonClassName} type="button">
+          <img src={heart} alt="heart" />
+        </button>
         <p className="card__like-count">
           {card.likes.length > 0 ? card.likes.length : ""}
         </p>

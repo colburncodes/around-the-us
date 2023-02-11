@@ -1,12 +1,11 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { api } from "../utils/api";
 import { Header } from "./Header";
 import { Main } from "./Main";
 import { Footer } from "./Footer";
 import { ImagePopup } from "./ImagePopup";
 import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../context/CurrentUserContext";
-import { api } from "../utils/api";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
