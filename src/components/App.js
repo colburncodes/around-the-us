@@ -49,9 +49,7 @@ function App() {
   };
 
   useEffect(() => {
-    return () => {
-      fetchUserInfo();
-    };
+    fetchUserInfo();
   }, []);
 
   return (
