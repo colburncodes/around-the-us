@@ -6,6 +6,8 @@ import { Footer } from "./Footer";
 import { ImagePopup } from "./ImagePopup";
 import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import { EditProfilePopup } from "./Forms/EditProfilePopup";
+import { EditAvatarPopup } from "./Forms/EditAvatarPopup";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -14,6 +16,13 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
+  const closeAllModals = () => {
+    setIsEditAvatarModalOpen(false);
+    setIsEditProfileModalOpen(false);
+    setIsAddPlaceModalOpen(false);
+    setIsImageOpen(false);
+  };
 
   function handleEditAvatarClick() {
     setIsEditAvatarModalOpen(true);
@@ -32,12 +41,25 @@ function App() {
     setIsImageOpen(true);
   }
 
-  const closeAllModals = () => {
-    setIsEditAvatarModalOpen(false);
-    setIsEditProfileModalOpen(false);
-    setIsAddPlaceModalOpen(false);
-    setIsImageOpen(false);
-  };
+  function handleUpdateAvatar(data) {
+    api
+      .setUserAvatar(data)
+      .then((avatar) => {
+        setCurrentUser(avatar);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => closeAllModals());
+  }
+
+  function handleUpdateUser(data) {
+    api
+      .editUserInfo(data)
+      .then((user) => {
+        setCurrentUser(user);
+      })
+      .catch((err) => console.error(err))
+      .finally(() => closeAllModals());
+  }
 
   const fetchUserInfo = async () => {
     await api
@@ -66,36 +88,14 @@ function App() {
           <Footer />
         </div>
 
-        <PopupWithForm
-          name="edit"
-          title="Edit Profile"
-          buttonText="Save"
-          isOpen={isEditProfileModalOpen}
-          onClose={closeAllModals}
-        >
-          <input
-            id="profile-name"
-            className="modal__input modal__input-profile-name"
-            type="text"
-            name="name"
-            placeholder="Name"
-            minLength="2"
-            maxLength="40"
-            required
+        {isEditProfileModalOpen && (
+          <EditProfilePopup
+            name="edit"
+            isEditProfileModalOpen={isEditProfileModalOpen}
+            onUpdateUser={handleUpdateUser}
+            closeAllModals={closeAllModals}
           />
-          <span className="modal__input-error profile-name-error"></span>
-          <input
-            id="profile-description"
-            className="modal__input modal__input-profile-description"
-            type="text"
-            name="about"
-            placeholder="Description"
-            minLength="2"
-            maxLength="200"
-            required
-          />
-          <span className="modal__input-error profile-description-error"></span>
-        </PopupWithForm>
+        )}
 
         <PopupWithForm
           name="create"
@@ -127,24 +127,14 @@ function App() {
           <span className="modal__input-error card-url-error"></span>
         </PopupWithForm>
 
-        <PopupWithForm
-          name="avatar"
-          title="Change profile picture"
-          buttonText="Save"
-          isOpen={isEditAvatarModalOpen}
-          onClose={closeAllModals}
-        >
-          <input
-            id="avatar-url"
-            className="modal__input modal__input-profile-avatar"
-            type="url"
+        {isEditAvatarModalOpen && (
+          <EditAvatarPopup
             name="avatar"
-            placeholder="Avatar Image"
-            pattern="https://.*"
-            required
+            isEditAvatarModalOpen={isEditAvatarModalOpen}
+            onUpdateAvatar={handleUpdateAvatar}
+            closeAllModals={closeAllModals}
           />
-          <span className="modal__input-error avatar-url-error"></span>
-        </PopupWithForm>
+        )}
 
         {/* Delete Confirmation Modal */}
         <PopupWithForm
