@@ -8,6 +8,7 @@ import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { EditProfilePopup } from "./Forms/EditProfilePopup";
 import { EditAvatarPopup } from "./Forms/EditAvatarPopup";
+import { AddPlacePopup } from "./Forms/AddPlacePopup";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -16,6 +17,7 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({});
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [cards, setCards] = useState({});
 
   const closeAllModals = () => {
     setIsEditAvatarModalOpen(false);
@@ -61,6 +63,16 @@ function App() {
       .finally(() => closeAllModals());
   }
 
+  function handleAddNewPlace(data) {
+    api
+      .addCard(data)
+      .then((card) => {
+        setCards([card, ...cards]);
+      })
+      .catch((err) => console.error(err.message))
+      .finally(() => closeAllModals());
+  }
+
   const fetchUserInfo = async () => {
     await api
       .getUserInfo()
@@ -97,35 +109,15 @@ function App() {
           />
         )}
 
-        <PopupWithForm
-          name="create"
-          title="New Place"
-          buttonText="Save"
-          isOpen={isAddPlaceModalOpen}
-          onClose={closeAllModals}
-        >
-          <input
-            id="card-title"
-            className="modal__input modal__input-card-title"
-            type="text"
-            name="name"
-            placeholder="Title"
-            minLength="1"
-            maxLength="30"
-            required
+        {isAddPlaceModalOpen && (
+          <AddPlacePopup
+            name="create"
+            title="New Place"
+            isAddPlaceModalOpen={isAddPlaceModalOpen}
+            onAddNewPlace={handleAddNewPlace}
+            closeAllModals={closeAllModals}
           />
-          <span className="modal__input-error card-title-error"></span>
-          <input
-            id="card-url"
-            className="modal__input modal__input-card-url"
-            type="url"
-            name="link"
-            placeholder="Image Url"
-            pattern="https://.*"
-            required
-          />
-          <span className="modal__input-error card-url-error"></span>
-        </PopupWithForm>
+        )}
 
         {isEditAvatarModalOpen && (
           <EditAvatarPopup
