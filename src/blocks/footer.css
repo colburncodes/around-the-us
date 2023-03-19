@@ -6,18 +6,21 @@
   justify-content: center;
   align-items: center;
   padding: 0;
-  margin: 68px auto 60px;
+  padding: 100px;
 }
 
 .footer__title {
+  width: 400px;
   font-family: "Inter", Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
   font-size: 18px;
   line-height: 22px;
-  margin-top: 0;
-  margin-bottom: 0;
   color: #545454;
+  justify-content: center;
+  display: flex;
+  left: -154px;
+  position: relative;
 }
 
 @media screen and (max-width: 480px) {
