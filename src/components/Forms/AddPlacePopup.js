@@ -1,14 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { PopupWithForm } from "../PopupWithForm";
 
-export function AddPlacePopup({ isAddPlaceModalOpen, closeAllModals }) {
+export function AddPlacePopup({
+  name,
+  title,
+  onAddNewPlace,
+  isAddPlaceModalOpen,
+  closeAllModals,
+}) {
+  const [cardTitle, setCardTitle] = useState("");
+  const [image, setImage] = useState("");
+
+  function hanldeNameChange(e) {
+    setCardTitle(e.target.value);
+  }
+
+  function handleImageChange(e) {
+    setImage(e.target.value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onAddNewPlace({ name: cardTitle, link: image });
+  }
   return (
     <PopupWithForm
-      name="create"
-      title="New Place"
+      name={name}
+      title={title}
       buttonText="Save"
       isOpen={isAddPlaceModalOpen}
       onClose={closeAllModals}
+      onSubmit={handleSubmit}
     >
       <input
         id="card-title"
@@ -18,6 +40,8 @@ export function AddPlacePopup({ isAddPlaceModalOpen, closeAllModals }) {
         placeholder="Title"
         minLength="1"
         maxLength="30"
+        value={cardTitle}
+        onChange={hanldeNameChange}
         required
       />
       <span className="modal__input-error card-title-error"></span>
@@ -28,6 +52,8 @@ export function AddPlacePopup({ isAddPlaceModalOpen, closeAllModals }) {
         name="link"
         placeholder="Image Url"
         pattern="https://.*"
+        value={image}
+        onChange={handleImageChange}
         required
       />
       <span className="modal__input-error card-url-error"></span>
