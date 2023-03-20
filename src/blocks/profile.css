@@ -16,9 +16,9 @@
 }
 
 .profile__edit-button {
-  height: 24px;
-  width: 24px;
-  background: transparent url(../images/edit-button.svg) center no-repeat;
+  border-radius: 21px;
+  width: 116px;
+  height: 40px;
   grid-area: button;
   transition: 0.3s;
   cursor: pointer;
@@ -32,11 +32,10 @@
 .profile__add-button {
   height: 50px;
   width: 150px;
-  background: transparent url(../images/add-button.svg) center no-repeat;
   margin-left: auto;
   padding: 0;
   border: 2px solid #fff;
-  border-radius: 2px;
+  border-radius: 23px;
   cursor: pointer;
   transition: 0.3s;
 }
@@ -155,16 +154,20 @@
   }
 
   .profile__avatar-edit {
-    top: 127px;
+    top: 174px;
   }
   .profile__title {
     font-size: 22px;
     line-height: 27px;
-    margin-left: 0;
+    position: relative;
+    top: 20px;
+    left: 27px;
   }
   .profile__description {
     width: 100%;
+    position: relative;
     text-align: center;
+    top: 15px;
   }
   .profile__add-button {
     margin: 0;
@@ -172,9 +175,10 @@
     margin-top: 36px;
   }
   .profile__edit-button {
-    margin-left: 10px;
-    width: 18px;
-    height: 18px;
-    margin-top: 0;
+    margin-left: -53px;
+    width: 109px;
+    height: 30px;
+    position: relative;
+    top: -15px;
   }
 }

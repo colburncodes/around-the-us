@@ -23,7 +23,7 @@ export function Card(props) {
     onCardLike(card);
   }
 
-  function handleDeleteClick(card) {
+  function handleDeleteClick() {
     onCardDelete(card);
   }
 
