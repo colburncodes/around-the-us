@@ -4,6 +4,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 export function EditProfilePopup({
   name,
+  isLoading,
   isEditProfileModalOpen,
   onUpdateUser,
   closeAllModals,
@@ -34,7 +35,7 @@ export function EditProfilePopup({
     <PopupWithForm
       name={name}
       title="Edit Profile"
-      buttonText="Save"
+      buttonText={isLoading ? "Saving..." : "Save"}
       isOpen={isEditProfileModalOpen}
       onClose={closeAllModals}
       onSubmit={handleSubmit}
