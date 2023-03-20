@@ -25,6 +25,10 @@
   right: 15px;
 }
 
+.card__delete-hidden {
+  display: none;
+}
+
 .card__delete-button:hover {
   opacity: 0.5;
   cursor: pointer;
