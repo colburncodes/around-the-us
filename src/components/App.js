@@ -4,20 +4,24 @@ import { Header } from "./Header";
 import { Main } from "./Main";
 import { Footer } from "./Footer";
 import { ImagePopup } from "./ImagePopup";
-import { PopupWithForm } from "./PopupWithForm";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import { EditProfilePopup } from "./Forms/EditProfilePopup";
 import { EditAvatarPopup } from "./Forms/EditAvatarPopup";
 import { AddPlacePopup } from "./Forms/AddPlacePopup";
+import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const [cards, setCards] = useState({});
+  const [cards, setCards] = useState([]);
+  const existingUser = React.useContext(CurrentUserContext);
 
   const closeAllModals = () => {
     setIsEditAvatarModalOpen(false);
@@ -38,40 +42,93 @@ function App() {
     setIsAddPlaceModalOpen(true);
   }
 
+  function handleDeleteCardClick(card) {
+    setSelectedDeleteCard(card);
+    setIsConfirmationModalOpen(true);
+  }
+
   function handleCardClick(card) {
     setSelectedCard(card);
     setIsImageOpen(true);
   }
 
   function handleUpdateAvatar(data) {
+    setIsLoading(true);
     api
       .setUserAvatar(data)
       .then((avatar) => {
         setCurrentUser(avatar);
       })
       .catch((err) => console.error(err))
-      .finally(() => closeAllModals());
+      .finally(() => {
+        setIsLoading(false);
+        closeAllModals();
+      });
   }
 
   function handleUpdateUser(data) {
+    setIsLoading(true);
     api
       .editUserInfo(data)
       .then((user) => {
         setCurrentUser(user);
       })
       .catch((err) => console.error(err))
-      .finally(() => closeAllModals());
+      .finally(() => {
+        setIsLoading(false);
+        closeAllModals();
+      });
   }
 
   function handleAddNewPlace(data) {
+    setIsLoading(true);
     api
       .addCard(data)
       .then((card) => {
         setCards([card, ...cards]);
       })
       .catch((err) => console.error(err.message))
-      .finally(() => closeAllModals());
+      .finally(() => {
+        setIsLoading(false);
+        closeAllModals();
+      });
   }
+
+  function handleCardLike(card) {
+    const isLiked = card.likes.some((user) => user._id === existingUser._id);
+    api
+      .changeCardLikeStatus(card._id, !isLiked)
+      .then((newCard) => {
+        setCards((state) =>
+          state.map((currentCard) =>
+            currentCard._id === card._id ? newCard : currentCard
+          )
+        );
+      })
+      .catch((error) => console.error(error));
+  }
+
+  function handleDeleteCard(card) {
+    console.log(card);
+    api
+      .deleteCardById(card._id)
+      .then(() => {
+        setCards([...cards.filter((item) => item._id !== card._id)]);
+        closeAllModals();
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
+
+  useEffect(() => {
+    api
+      .getInitialCards()
+      .then((cards) => {
+        setCards(cards);
+      })
+      .catch((error) => console.error(error));
+  }, []);
 
   const fetchUserInfo = async () => {
     await api
@@ -92,9 +149,12 @@ function App() {
         <div className="page__content">
           <Header />
           <Main
+            cards={cards}
+            handleCardLike={handleCardLike}
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
             onEditAvatarClick={handleEditAvatarClick}
+            onDeleteCardClick={handleDeleteCard}
             onCardClick={handleCardClick}
           />
           <Footer />
@@ -103,6 +163,7 @@ function App() {
         {isEditProfileModalOpen && (
           <EditProfilePopup
             name="edit"
+            isLoading={isLoading}
             isEditProfileModalOpen={isEditProfileModalOpen}
             onUpdateUser={handleUpdateUser}
             closeAllModals={closeAllModals}
@@ -113,6 +174,7 @@ function App() {
           <AddPlacePopup
             name="create"
             title="New Place"
+            isLoading={isLoading}
             isAddPlaceModalOpen={isAddPlaceModalOpen}
             onAddNewPlace={handleAddNewPlace}
             closeAllModals={closeAllModals}
@@ -122,28 +184,24 @@ function App() {
         {isEditAvatarModalOpen && (
           <EditAvatarPopup
             name="avatar"
+            isLoading={isLoading}
             isEditAvatarModalOpen={isEditAvatarModalOpen}
             onUpdateAvatar={handleUpdateAvatar}
             closeAllModals={closeAllModals}
           />
         )}
 
-        {/* Delete Confirmation Modal */}
-        <PopupWithForm
-          name="delete"
-          title="Are you sure?"
-          buttonText="Yes"
-          onClose={closeAllModals}
-        ></PopupWithForm>
-        {/* <div className="modal" id="delete-modal">
-        <div className="modal__delete-container">
-          <h3 className="modal__title">Are you sure?</h3>
-          <button type="button" className="modal__close"></button>
-          <button className="modal__save-button" type="submit">
-            Yes
-          </button>
-        </div>
-      </div> */}
+        {isConfirmationModalOpen && (
+          <DeleteConfirmationModal
+            name="delete"
+            isLoading={isLoading}
+            card={selectedDeleteCard}
+            isConfirmationModalOpen={isConfirmationModalOpen}
+            onDeleteCard={handleDeleteCardClick}
+            closeAllModals={closeAllModals}
+          />
+        )}
+
         <ImagePopup
           name="image"
           card={selectedCard}

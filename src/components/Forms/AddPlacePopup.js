@@ -4,6 +4,7 @@ import { PopupWithForm } from "../PopupWithForm";
 export function AddPlacePopup({
   name,
   title,
+  isLoading,
   onAddNewPlace,
   isAddPlaceModalOpen,
   closeAllModals,
@@ -27,7 +28,7 @@ export function AddPlacePopup({
     <PopupWithForm
       name={name}
       title={title}
-      buttonText="Save"
+      buttonText={isLoading ? "Saving..." : "Save"}
       isOpen={isAddPlaceModalOpen}
       onClose={closeAllModals}
       onSubmit={handleSubmit}

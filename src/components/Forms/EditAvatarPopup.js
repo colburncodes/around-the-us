@@ -3,6 +3,7 @@ import { PopupWithForm } from "../PopupWithForm";
 
 export function EditAvatarPopup({
   name,
+  isLoading,
   isEditAvatarModalOpen,
   onUpdateAvatar,
   closeAllModals,
@@ -25,7 +26,7 @@ export function EditAvatarPopup({
     <PopupWithForm
       name={name}
       title="Change profile picture"
-      buttonText="Save"
+      buttonText={isLoading ? "Saving..." : "Save"}
       isOpen={isEditAvatarModalOpen}
       onClose={closeAllModals}
       onSubmit={handleSubmit}
