@@ -21,7 +21,6 @@ function App() {
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
-  const existingUser = React.useContext(CurrentUserContext);
 
   const closeAllModals = () => {
     setIsEditAvatarModalOpen(false);
@@ -95,7 +94,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((user) => user._id === existingUser._id);
+    const isLiked = card.likes.some((user) => user._id === currentUser._id);
     api
       .changeCardLikeStatus(card._id, !isLiked)
       .then((newCard) => {
@@ -122,25 +121,12 @@ function App() {
   }
 
   useEffect(() => {
-    api
-      .getInitialCards()
-      .then((cards) => {
-        setCards(cards);
+    Promise.all([api.getInitialCards(), api.getUserInfo()])
+      .then(([cardsList, userInfo]) => {
+        setCards(cardsList);
+        setCurrentUser(userInfo);
       })
       .catch((error) => console.error(error));
-  }, []);
-
-  const fetchUserInfo = async () => {
-    await api
-      .getUserInfo()
-      .then(async (data) => {
-        setCurrentUser(data);
-      })
-      .catch((error) => console.error(error));
-  };
-
-  useEffect(() => {
-    fetchUserInfo();
   }, []);
 
   return (

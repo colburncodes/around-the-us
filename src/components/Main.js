@@ -33,7 +33,9 @@ export function Main({
             type="button"
             aria-label="edit"
             onClick={onEditProfileClick}
-          ></button>
+          >
+            Edit profile
+          </button>
           <p className="profile__description">{currentUser.about}</p>
         </div>
         <button
@@ -41,7 +43,9 @@ export function Main({
           type="button"
           aria-label="add"
           onClick={onAddPlaceClick}
-        ></button>
+        >
+          Create
+        </button>
       </section>
 
       <section className="cards page__section">
