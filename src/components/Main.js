@@ -4,11 +4,11 @@ import { CurrentUserContext } from "../context/CurrentUserContext";
 
 export function Main({
   cards,
-  handleCardLike,
   onEditProfileClick,
   onAddPlaceClick,
   onEditAvatarClick,
-  onDeleteCardClick,
+  onCardLike,
+  onDeleteCard,
   onCardClick,
 }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -55,8 +55,8 @@ export function Main({
               key={card._id}
               card={card}
               onCardClick={onCardClick}
-              onCardLike={handleCardLike}
-              onCardDelete={onDeleteCardClick}
+              onCardLike={onCardLike}
+              onCardDelete={onDeleteCard}
             />
           ))}
         </ul>
