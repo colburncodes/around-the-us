@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/around-the-us/static/css/main.fc44fa5a.css",
-    "main.js": "/around-the-us/static/js/main.a8c5f9b6.js",
+    "main.css": "/around-the-us/static/css/main.d0104ea4.css",
+    "main.js": "/around-the-us/static/js/main.741f6054.js",
     "static/js/787.1c78f32b.chunk.js": "/around-the-us/static/js/787.1c78f32b.chunk.js",
     "static/media/logo.svg": "/around-the-us/static/media/logo.4e8e0a1d604782a0dff8e5b1a5441e4d.svg",
     "static/media/github.svg": "/around-the-us/static/media/github.d4123c9d0ea621e3266e1466b3f3db83.svg",
@@ -10,15 +10,13 @@
     "static/media/Trash.svg": "/around-the-us/static/media/Trash.8cb59aa98088a1653f62.svg",
     "static/media/Union.svg": "/around-the-us/static/media/Union.226461bd64622361ffb2.svg",
     "static/media/close-button.svg": "/around-the-us/static/media/close-button.a0b69d73215c6cfa2136.svg",
-    "static/media/edit-button.svg": "/around-the-us/static/media/edit-button.8667ac4a523e8fc42e59.svg",
     "static/media/edit-icon.svg": "/around-the-us/static/media/edit-icon.a086f758840ae814ecde.svg",
-    "static/media/add-button.svg": "/around-the-us/static/media/add-button.d86bb2edc2f6eadb96b7.svg",
-    "main.fc44fa5a.css.map": "/around-the-us/static/css/main.fc44fa5a.css.map",
-    "main.a8c5f9b6.js.map": "/around-the-us/static/js/main.a8c5f9b6.js.map",
+    "main.d0104ea4.css.map": "/around-the-us/static/css/main.d0104ea4.css.map",
+    "main.741f6054.js.map": "/around-the-us/static/js/main.741f6054.js.map",
     "787.1c78f32b.chunk.js.map": "/around-the-us/static/js/787.1c78f32b.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.fc44fa5a.css",
-    "static/js/main.a8c5f9b6.js"
+    "static/css/main.d0104ea4.css",
+    "static/js/main.741f6054.js"
   ]
 }
