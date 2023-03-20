@@ -108,7 +108,6 @@ function App() {
   }
 
   function handleDeleteCard(card) {
-    console.log(card);
     api
       .deleteCardById(card._id)
       .then(() => {
@@ -136,11 +135,11 @@ function App() {
           <Header />
           <Main
             cards={cards}
-            handleCardLike={handleCardLike}
             onEditProfileClick={handleEditProfileClick}
             onAddPlaceClick={handleAddPlaceClick}
             onEditAvatarClick={handleEditAvatarClick}
-            onDeleteCardClick={handleDeleteCard}
+            onCardLike={handleCardLike}
+            onDeleteCard={handleDeleteCard}
             onCardClick={handleCardClick}
           />
           <Footer />
