@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { api } from "../utils/api";
-import { Header } from "./Header";
-import { Main } from "./Main";
-import { Footer } from "./Footer";
-import { ImagePopup } from "./ImagePopup";
+import {
+  Header,
+  Main,
+  Footer,
+  ImagePopup,
+  EditAvatarPopup,
+  EditProfilePopup,
+  AddPlacePopup,
+  DeleteConfirmationModal,
+} from "../components/index";
 import { CurrentUserContext } from "../context/CurrentUserContext";
-import { EditProfilePopup } from "./Forms/EditProfilePopup";
-import { EditAvatarPopup } from "./Forms/EditAvatarPopup";
-import { AddPlacePopup } from "./Forms/AddPlacePopup";
-import { DeleteConfirmationModal } from "./DeleteConfirmationModal";
+
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
