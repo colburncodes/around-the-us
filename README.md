@@ -18,6 +18,9 @@ This is a project that showcases a social network where users can share, add, re
 - User validation
 
 
+## Documentation 
+[Figma Design](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)  
+
 ## Tech Stack
 
 **Client:** React, Context API
