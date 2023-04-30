@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { Route } from "react-router-dom";
 import { api } from "../utils/api";
 import {
   Header,
   Main,
   Footer,
+  Login,
+  Register,
   ImagePopup,
   EditAvatarPopup,
   EditProfilePopup,
@@ -12,13 +15,13 @@ import {
 } from "../components/index";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 
-
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
   const [isAddPlaceModalOpen, setIsAddPlaceModalOpen] = useState(false);
   const [isEditAvatarModalOpen, setIsEditAvatarModalOpen] = useState(false);
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
   const [isImageOpen, setIsImageOpen] = useState(false);
@@ -145,6 +148,13 @@ function App() {
             onDeleteCard={handleDeleteCard}
             onCardClick={handleCardClick}
           />
+          <Route path="/signin">
+            <Login />
+          </Route>
+          <Route path="/signup">
+            <Register />
+          </Route>
+          {isLoggedIn ? <Route path="/" /> : <Route path="signup" />}
           <Footer />
         </div>
 
