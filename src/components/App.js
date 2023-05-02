@@ -14,6 +14,7 @@ import {
   DeleteConfirmationModal,
 } from "../components/index";
 import { CurrentUserContext } from "../context/CurrentUserContext";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -139,15 +140,18 @@ function App() {
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page__content">
           <Header />
-          <Main
-            cards={cards}
-            onEditProfileClick={handleEditProfileClick}
-            onAddPlaceClick={handleAddPlaceClick}
-            onEditAvatarClick={handleEditAvatarClick}
-            onCardLike={handleCardLike}
-            onDeleteCard={handleDeleteCard}
-            onCardClick={handleCardClick}
-          />
+          <ProtectedRoute isLoggedIn={isLoggedIn}>
+            <Main
+              cards={cards}
+              onEditProfileClick={handleEditProfileClick}
+              onAddPlaceClick={handleAddPlaceClick}
+              onEditAvatarClick={handleEditAvatarClick}
+              onCardLike={handleCardLike}
+              onDeleteCard={handleDeleteCard}
+              onCardClick={handleCardClick}
+            />
+          </ProtectedRoute>
+
           <Route path="/signin">
             <Login />
           </Route>
