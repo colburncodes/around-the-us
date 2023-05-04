@@ -126,6 +126,14 @@ function App() {
       });
   }
 
+  function onRegister({ email, password }) {
+    console.log("Register User");
+  }
+
+  function onLogin({ email, password }) {
+    console.log("Login User");
+  }
+
   useEffect(() => {
     Promise.all([api.getInitialCards(), api.getUserInfo()])
       .then(([cardsList, userInfo]) => {
@@ -153,12 +161,12 @@ function App() {
           </ProtectedRoute>
 
           <Route path="/signin">
-            <Login />
+            <Login onLogin={onLogin} />
           </Route>
           <Route path="/signup">
-            <Register />
+            <Register onRegister={onRegister} />
           </Route>
-          {isLoggedIn ? <Route path="/" /> : <Route path="signup" />}
+          {isLoggedIn ? <Route path="/" /> : <Route path="signin" />}
           <Footer />
         </div>
 
