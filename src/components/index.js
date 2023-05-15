@@ -8,3 +8,4 @@ export { AddPlacePopup } from "./Forms/AddPlacePopup";
 export { DeleteConfirmationModal } from "./DeleteConfirmationModal";
 export { Login } from "./Login";
 export { Register } from "./Register";
+export { InfoToolTip } from "./InfoToolTip";
