@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Route } from "react-router-dom";
 import { api } from "../utils/api";
+import auth from "../utils/auth";
+
 import {
   Header,
   Main,
@@ -8,6 +10,7 @@ import {
   Login,
   Register,
   ImagePopup,
+  InfoToolTip,
   EditAvatarPopup,
   EditProfilePopup,
   AddPlacePopup,
@@ -23,6 +26,7 @@ function App() {
   const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
   const [isImageOpen, setIsImageOpen] = useState(false);
@@ -34,6 +38,7 @@ function App() {
     setIsEditProfileModalOpen(false);
     setIsAddPlaceModalOpen(false);
     setIsImageOpen(false);
+    setIsInfoToolTipOpen(false);
   };
 
   function handleEditAvatarClick() {
@@ -127,7 +132,18 @@ function App() {
   }
 
   function onRegister({ email, password }) {
+    // need to test
     console.log("Register User");
+    auth
+      .register(email, password)
+      .then((res) => {
+        if (res.data._id) {
+          setIsInfoToolTipOpen(true);
+        }
+      })
+      .catch((err) => {
+        return console.error(err);
+      });
   }
 
   function onLogin({ email, password }) {
@@ -218,6 +234,8 @@ function App() {
           isOpen={isImageOpen}
           onClose={closeAllModals}
         />
+
+        <InfoToolTip isOpen={isInfoToolTipOpen} onClose={closeAllModals} />
       </CurrentUserContext.Provider>
     </div>
   );
