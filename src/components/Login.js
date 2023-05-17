@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PopupWithForm } from "../components/PopupWithForm";
 
-export function Login({ onLogin }) {
+export function Login({ onLogin, onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,7 +15,12 @@ export function Login({ onLogin }) {
   };
 
   return (
-    <PopupWithForm onSubmit={handleSubmit} buttonText="Log in">
+    <PopupWithForm
+      title={"Log in"}
+      onSubmit={handleSubmit}
+      buttonText={"Log in"}
+      onClose={onClose}
+    >
       <div className="login">
         <div className="login__container">
           <h1 className="login__title">Log in</h1>
