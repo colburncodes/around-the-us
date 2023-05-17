@@ -7,9 +7,26 @@
 .header__logo {
   width: 173px;
   height: 33px;
-  left: 200px;
-  margin-top: 45px;
-  margin-bottom: 41px;
+  top: 28px;
+  position: relative;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+
+}
+
+.header__logout {
+  
+}
+
+.header__auth-link {
+  color: #fff;
+  font-size: 18px;
+  font-family: "Inter", Arial, sans-serif;
+  text-decoration: none;
+  margin-bottom: 46px;
 }
 
 @media screen and (max-width: 880px) {

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Route } from "react-router-dom";
+import { Switch, Route, useHistory } from "react-router-dom";
 import { api } from "../utils/api";
-import auth from "../utils/auth";
+import { register } from "../utils/auth";
 
 import {
   Header,
@@ -27,11 +27,15 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isInfoToolTipOpen, setIsInfoToolTipOpen] = useState(false);
+  const [toolTipStatus, setToolTipStatus] = useState("");
   const [selectedCard, setSelectedCard] = useState({});
   const [selectedDeleteCard, setSelectedDeleteCard] = useState({});
   const [isImageOpen, setIsImageOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [email, setEmail] = useState("");
   const [cards, setCards] = useState([]);
+
+  const history = useHistory();
 
   const closeAllModals = () => {
     setIsEditAvatarModalOpen(false);
@@ -134,11 +138,12 @@ function App() {
   function onRegister({ email, password }) {
     // need to test
     console.log("Register User");
-    auth
-      .register(email, password)
+
+    register(email, password)
       .then((res) => {
         if (res.data._id) {
           setIsInfoToolTipOpen(true);
+          history.push("/signin");
         }
       })
       .catch((err) => {
@@ -148,6 +153,12 @@ function App() {
 
   function onLogin({ email, password }) {
     console.log("Login User");
+  }
+
+  function onSignOut() {
+    localStorage.removeItem("token");
+    setIsLoggedIn(false);
+    history.push("/signin");
   }
 
   useEffect(() => {
@@ -163,8 +174,9 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page__content">
-          <Header />
-          <ProtectedRoute isLoggedIn={isLoggedIn}>
+          <Header email={email} onSignOut={onSignOut} />
+          <Switch>
+            {/* <ProtectedRoute isLoggedIn={isLoggedIn} exact path="/"> */}
             <Main
               cards={cards}
               onEditProfileClick={handleEditProfileClick}
@@ -174,15 +186,19 @@ function App() {
               onDeleteCard={handleDeleteCard}
               onCardClick={handleCardClick}
             />
-          </ProtectedRoute>
+            {/* </ProtectedRoute> */}
 
-          <Route path="/signin">
-            <Login onLogin={onLogin} />
-          </Route>
-          <Route path="/signup">
-            <Register onRegister={onRegister} />
-          </Route>
-          {isLoggedIn ? <Route path="/" /> : <Route path="signin" />}
+            <Route path="/signup">
+              <Register onRegister={onRegister} />
+            </Route>
+
+            <Route path="/signin">
+              <Login onLogin={onLogin} />
+            </Route>
+            <Route>
+              {isLoggedIn ? <Route path="/" /> : <Route path="/signin" />}
+            </Route>
+          </Switch>
           <Footer />
         </div>
 

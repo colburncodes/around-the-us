@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { PopupWithForm } from "./PopupWithForm";
 
-export function Register({ onRegister }) {
+export function Register({ onRegister, onClose }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -15,7 +15,12 @@ export function Register({ onRegister }) {
   };
 
   return (
-    <PopupWithForm onSubmit={handleSubmit} buttonText="Sign up">
+    <PopupWithForm
+      title={"Sign up"}
+      onSubmit={handleSubmit}
+      buttonText={"Sign up"}
+      onClose={onClose}
+    >
       <div className="register">
         <div className="register__container">
           <h1 className="register__title">Sign up</h1>

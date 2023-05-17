@@ -52,5 +52,3 @@ export const checkToken = (token) => {
       return res;
     });
 };
-
-module.exports = { register, login, checkToken };
