@@ -23,7 +23,7 @@ export function EditProfilePopup({
 
   function handleSubmit(e) {
     e.preventDefault();
-    onUpdateUser({ name: username, about: description });
+    onUpdateUser({ name: username, description: description });
   }
 
   useEffect(() => {
@@ -40,6 +40,11 @@ export function EditProfilePopup({
       onClose={closeAllModals}
       onSubmit={handleSubmit}
     >
+      {username.trim() && username.length < 3 ? (
+        <p className="username-error" style={{ color: "red" }}>
+          Name is too short
+        </p>
+      ) : null}
       <input
         id="profile-name"
         className="modal__input modal__input-profile-name"
@@ -53,6 +58,11 @@ export function EditProfilePopup({
         required
       />
       <span className="modal__input-error profile-name-error"></span>
+      {description.trim() && description.length < 3 ? (
+        <p className="description-error" style={{ color: "red" }}>
+          Description is too short
+        </p>
+      ) : null}
       <input
         id="profile-description"
         className="modal__input modal__input-profile-description"

@@ -101,6 +101,14 @@
   cursor: pointer;
 }
 
+.username-error {
+  margin-left: 35px;
+}
+
+.description-error {
+  margin-left: 35px;
+}
+
 @media screen and (max-width: 740px) {
   .profile__info {
     grid-template-columns: minmax(auto, 228px) auto;
