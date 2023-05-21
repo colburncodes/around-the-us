@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Switch, Route, useHistory } from "react-router-dom";
 import { api } from "../utils/api";
-import { register } from "../utils/auth";
+import { login, register } from "../utils/auth";
 
 import {
   Header,
@@ -18,6 +18,7 @@ import {
 } from "../components/index";
 import { CurrentUserContext } from "../context/CurrentUserContext";
 import ProtectedRoute from "./ProtectedRoute";
+import { Redirect } from "react-router-dom/cjs/react-router-dom.min";
 
 function App() {
   const [isEditProfileModalOpen, setIsEditProfileModalOpen] = useState(false);
@@ -138,7 +139,7 @@ function App() {
   function onRegister({ email, password }) {
     // need to test
     console.log("Register User");
-
+    setIsLoading(true);
     register(email, password)
       .then((res) => {
         if (res.data._id) {
@@ -148,11 +149,29 @@ function App() {
       })
       .catch((err) => {
         return console.error(err);
-      });
+      })
+      .finally(() => setIsInfoToolTipOpen(true));
   }
 
   function onLogin({ email, password }) {
-    console.log("Login User");
+    setIsLoading(true);
+    login(email, password)
+      .then((res) => {
+        if (res) {
+          setIsLoggedIn(true);
+          setEmail(email);
+          localStorage.setItem("token", res.token);
+          closeAllModals();
+        } else {
+          setToolTipStatus("fail");
+          setIsInfoToolTipOpen(true);
+        }
+      })
+      .catch((err) => {
+        setToolTipStatus("fail");
+        setIsInfoToolTipOpen(true);
+      })
+      .finally(() => setIsLoading(false));
   }
 
   function onSignOut() {
@@ -176,17 +195,17 @@ function App() {
         <div className="page__content">
           <Header email={email} onSignOut={onSignOut} />
           <Switch>
-            {/* <ProtectedRoute isLoggedIn={isLoggedIn} exact path="/"> */}
-            <Main
-              cards={cards}
-              onEditProfileClick={handleEditProfileClick}
-              onAddPlaceClick={handleAddPlaceClick}
-              onEditAvatarClick={handleEditAvatarClick}
-              onCardLike={handleCardLike}
-              onDeleteCard={handleDeleteCard}
-              onCardClick={handleCardClick}
-            />
-            {/* </ProtectedRoute> */}
+            <ProtectedRoute exact path="/" isLoggedIn={isLoggedIn}>
+              <Main
+                cards={cards}
+                onEditProfileClick={handleEditProfileClick}
+                onAddPlaceClick={handleAddPlaceClick}
+                onEditAvatarClick={handleEditAvatarClick}
+                onCardLike={handleCardLike}
+                onDeleteCard={handleDeleteCard}
+                onCardClick={handleCardClick}
+              />
+            </ProtectedRoute>
 
             <Route path="/signup">
               <Register onRegister={onRegister} />
@@ -196,7 +215,7 @@ function App() {
               <Login onLogin={onLogin} />
             </Route>
             <Route>
-              {isLoggedIn ? <Route path="/" /> : <Route path="/signin" />}
+              {isLoggedIn ? <Redirect to="/" /> : <Redirect to="/signin" />}
             </Route>
           </Switch>
           <Footer />
