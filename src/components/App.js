@@ -270,7 +270,7 @@ function App() {
           onClose={closeAllModals}
         />
 
-        <InfoToolTip isOpen={isInfoToolTipOpen} onClose={closeAllModals} />
+        {/* <InfoToolTip isOpen={isInfoToolTipOpen} onClose={closeAllModals} /> */}
       </CurrentUserContext.Provider>
     </div>
   );
