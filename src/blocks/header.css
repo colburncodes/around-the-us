@@ -11,14 +11,36 @@
   position: relative;
 }
 
-.header__container {
-  display: flex;
-  justify-content: space-between;
-
+.header__user {
+  position: relative;
+  justify-content: right;
+  float: right;
+  left: 664px;
+  top: -16px;
+  color: white;
 }
 
 .header__logout {
-  
+  width: 100px;
+  border: none;
+  cursor: pointer;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 22px;
+  color: #fff;
+  text-decoration: none;
+  background: transparent;
+  opacity: 0.6;
+  transition: opacity 0.2s ease-in-out;
+  position: relative;
+  top: -15px;
+  left: 25px;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
 }
 
 .header__auth-link {
@@ -27,6 +49,9 @@
   font-family: "Inter", Arial, sans-serif;
   text-decoration: none;
   margin-bottom: 46px;
+  position: relative;
+  left: 815px;
+  top: -23px;
 }
 
 @media screen and (max-width: 880px) {
