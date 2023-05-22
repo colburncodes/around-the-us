@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/around-the-us/static/css/main.ea960e44.css",
-    "main.js": "/around-the-us/static/js/main.29350298.js",
+    "main.css": "/around-the-us/static/css/main.2b12f50b.css",
+    "main.js": "/around-the-us/static/js/main.c2b6956c.js",
     "static/media/logo.svg": "/around-the-us/static/media/logo.4e8e0a1d604782a0dff8e5b1a5441e4d.svg",
     "static/media/github.svg": "/around-the-us/static/media/github.d4123c9d0ea621e3266e1466b3f3db83.svg",
     "static/media/heart.svg": "/around-the-us/static/media/heart.490e8e45f6fd07daa7ff41d5e9a4ce31.svg",
@@ -10,11 +10,11 @@
     "static/media/Union.svg": "/around-the-us/static/media/Union.226461bd64622361ffb2.svg",
     "static/media/close-button.svg": "/around-the-us/static/media/close-button.a0b69d73215c6cfa2136.svg",
     "static/media/edit-icon.svg": "/around-the-us/static/media/edit-icon.a086f758840ae814ecde.svg",
-    "main.ea960e44.css.map": "/around-the-us/static/css/main.ea960e44.css.map",
-    "main.29350298.js.map": "/around-the-us/static/js/main.29350298.js.map"
+    "main.2b12f50b.css.map": "/around-the-us/static/css/main.2b12f50b.css.map",
+    "main.c2b6956c.js.map": "/around-the-us/static/js/main.c2b6956c.js.map"
   },
   "entrypoints": [
-    "static/css/main.ea960e44.css",
-    "static/js/main.29350298.js"
+    "static/css/main.2b12f50b.css",
+    "static/js/main.c2b6956c.js"
   ]
 }
