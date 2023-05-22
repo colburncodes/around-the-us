@@ -137,12 +137,11 @@ function App() {
   }
 
   function onRegister({ email, password }) {
-    // need to test
-    console.log("Register User");
     setIsLoading(true);
     register(email, password)
       .then((res) => {
-        if (res.data._id) {
+        console.log(res);
+        if (res._id) {
           setIsInfoToolTipOpen(true);
           history.push("/signin");
         }
@@ -160,8 +159,8 @@ function App() {
         if (res) {
           setIsLoggedIn(true);
           setEmail(email);
+          setCurrentUser(res.token);
           localStorage.setItem("token", res.token);
-          closeAllModals();
         } else {
           setToolTipStatus("fail");
           setIsInfoToolTipOpen(true);
@@ -177,6 +176,8 @@ function App() {
   function onSignOut() {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
+    setEmail("");
+    setCurrentUser({});
     history.push("/signin");
   }
 
@@ -193,9 +194,9 @@ function App() {
     <div className="page">
       <CurrentUserContext.Provider value={currentUser}>
         <div className="page__content">
-          <Header email={email} onSignOut={onSignOut} />
+          <Header isLoggedIn={isLoggedIn} email={email} onSignOut={onSignOut} />
           <Switch>
-            <ProtectedRoute exact path="/" isLoggedIn={isLoggedIn}>
+            <Route exact path="/" isLoggedIn={isLoggedIn}>
               <Main
                 cards={cards}
                 onEditProfileClick={handleEditProfileClick}
@@ -205,7 +206,7 @@ function App() {
                 onDeleteCard={handleDeleteCard}
                 onCardClick={handleCardClick}
               />
-            </ProtectedRoute>
+            </Route>
 
             <Route path="/signup">
               <Register onRegister={onRegister} />
